@@ -6,40 +6,24 @@
 // 1. 숫자&위치 일치 여부 확인 후 strike 적립
 // 2. 1이 끝나고, 1에 속하지 않는 수 중에(visit==0) 수만 일치하는 거 확인 후 ball 적립
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class Game {
 
-    private int answer ;
+    private int[] answer= new int[4];
+    private FindStrike compareNum;
     private int chances;
-    private int testNum;
-    private int strike=0;
-    private int ball=0;
+    private Print print;
 
-    int[] digits1 = Stream.of(String.valueOf(answer).split("")).mapToInt(Integer::parseInt).toArray();
-    int[] digits2 = Stream.of(String.valueOf(testNum).split("")).mapToInt(Integer::parseInt).toArray();
-    private int[] visit= new int[4]; //길이 4인 0 리스트
 
-    public String mathBaseball(int[] digits1,int[] digits2,int chances) {
-        for (int i = 0; i < chances; i++) {
-                for (int j = 0; j < 4; j++) {
-
-                    if (digits1[i] == digits2[i]) {
-                        strike += 1;
-                        visit[i] = 1;
-
-                    if (digits1[i] == digits2[j] && visit[i] == 0) {
-                        ball += 1;
-                        visit[i] = 1;
-                    }
-                }
-            }
+    public String wholeRound(Round ... rounds){
+        for (Round round : rounds) {
+            int[] visit= new int[4]; //길이 4인 0 리스트
+            compareNum.findStrike(answer,round,visit);
+            return print.finalPrint(answer,visit,round);
         }
-        String name = "스트라이크: " + strike + "볼: " + ball; //이렇게 하면 매번 테스트마다 출력을 못함
-        return name;
-
+        return "0";
     }
+
 }
