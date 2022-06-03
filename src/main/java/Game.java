@@ -12,16 +12,14 @@ import java.util.ArrayList;
 public class Game {
 
     private int[] answer= new int[4];
-    private FindStrike compareNum;
+    private Calculate calculate;
     private int chances;
     private Print print;
 
 
     public String wholeRound(Round ... rounds){
         for (Round round : rounds) {
-            int[] visit= new int[4]; //길이 4인 0 리스트
-            compareNum.findStrike(answer,round,visit);
-            return print.finalPrint(answer,visit,round);
+            calculate.collectAnswer(answer,round);
         }
         return "0";
     }
